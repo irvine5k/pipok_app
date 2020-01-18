@@ -70,7 +70,9 @@ abstract class _AuthController with Store {
   Future<void> signOut() async {
     try {
       loading = true;
-
+      
+      final googleSignIn = GoogleSignIn();
+      googleSignIn.signOut();
       await _firebaseAuth.signOut();
 
       loading = false;
