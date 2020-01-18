@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pipok_app/src/shared/auth/auth_controller.dart';
 import 'package:pipok_app/src/sign_in/widgets/sign_in_button_widget.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +20,25 @@ class _SignInPageState extends State<SignInPage> {
         title: Text('ENTRAR'),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SignInButtonWidget(onTap: _authController.signInAnonymously),
-            ],
-          ),
-        ),
+        child: Observer(builder: (context) {
+          if (_authController.loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SignInButtonWidget(
+                  onTap: _authController.signInAnonymously,
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

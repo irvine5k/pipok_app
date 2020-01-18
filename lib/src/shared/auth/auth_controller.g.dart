@@ -26,10 +26,51 @@ mixin _$AuthController on _AuthController, Store {
     }, _$userAtom, name: '${_$userAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_AuthController.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
+  final _$errorAtom = Atom(name: '_AuthController.error');
+
+  @override
+  String get error {
+    _$errorAtom.context.enforceReadPolicy(_$errorAtom);
+    _$errorAtom.reportObserved();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.context.conditionallyRunInAction(() {
+      super.error = value;
+      _$errorAtom.reportChanged();
+    }, _$errorAtom, name: '${_$errorAtom.name}_set');
+  }
+
   final _$signInAnonymouslyAsyncAction = AsyncAction('signInAnonymously');
 
   @override
   Future<void> signInAnonymously() {
     return _$signInAnonymouslyAsyncAction.run(() => super.signInAnonymously());
+  }
+
+  final _$signOutAsyncAction = AsyncAction('signOut');
+
+  @override
+  Future<void> signOut() {
+    return _$signOutAsyncAction.run(() => super.signOut());
   }
 }
