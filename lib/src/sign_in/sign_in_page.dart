@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pipok_app/src/shared/auth/auth_controller.dart';
 import 'package:pipok_app/src/sign_in/widgets/sign_in_button_widget.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -8,17 +10,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  Future<void> _signInAnonymously() async {
-    final authResult = await FirebaseAuth.instance.signInAnonymously();
-
-    print('${authResult.user.uid}');
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _authController = Provider.of<AuthController>(context);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[800],
         title: Text('ENTRAR'),
       ),
       body: SafeArea(
@@ -28,9 +25,7 @@ class _SignInPageState extends State<SignInPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SignInButtonWidget(
-                onTap: _signInAnonymously,
-              ),
+              SignInButtonWidget(onTap: _authController.signInAnonymously),
             ],
           ),
         ),
