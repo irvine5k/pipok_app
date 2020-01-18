@@ -9,22 +9,12 @@ part of 'auth_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthController on _AuthController, Store {
-  final _$userAtom = Atom(name: '_AuthController.user');
+  Computed<ObservableStream<FirebaseUser>> _$authStreamComputed;
 
   @override
-  FirebaseUser get user {
-    _$userAtom.context.enforceReadPolicy(_$userAtom);
-    _$userAtom.reportObserved();
-    return super.user;
-  }
-
-  @override
-  set user(FirebaseUser value) {
-    _$userAtom.context.conditionallyRunInAction(() {
-      super.user = value;
-      _$userAtom.reportChanged();
-    }, _$userAtom, name: '${_$userAtom.name}_set');
-  }
+  ObservableStream<FirebaseUser> get authStream => (_$authStreamComputed ??=
+          Computed<ObservableStream<FirebaseUser>>(() => super.authStream))
+      .value;
 
   final _$loadingAtom = Atom(name: '_AuthController.loading');
 
@@ -60,11 +50,18 @@ mixin _$AuthController on _AuthController, Store {
     }, _$errorAtom, name: '${_$errorAtom.name}_set');
   }
 
-  final _$signInAnonymouslyAsyncAction = AsyncAction('signInAnonymously');
+  final _$getCurrentUserAsyncAction = AsyncAction('getCurrentUser');
 
   @override
-  Future<void> signInAnonymously() {
-    return _$signInAnonymouslyAsyncAction.run(() => super.signInAnonymously());
+  Future<void> getCurrentUser() {
+    return _$getCurrentUserAsyncAction.run(() => super.getCurrentUser());
+  }
+
+  final _$signInWithGoogleAsyncAction = AsyncAction('signInWithGoogle');
+
+  @override
+  Future<void> signInWithGoogle() {
+    return _$signInWithGoogleAsyncAction.run(() => super.signInWithGoogle());
   }
 
   final _$signOutAsyncAction = AsyncAction('signOut');

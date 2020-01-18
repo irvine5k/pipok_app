@@ -1,3 +1,4 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,8 +7,15 @@ part 'auth_controller.g.dart';
 class AuthController = _AuthController with _$AuthController;
 
 abstract class _AuthController with Store {
-  @observable
-  FirebaseUser user;
+  _AuthController() {
+    getCurrentUser();
+  }
+
+  final _firebaseAuth = FirebaseAuth.instance;
+
+  @computed
+  ObservableStream<FirebaseUser> get authStream =>
+      FirebaseAuth.instance.onAuthStateChanged.asObservable();
 
   @observable
   bool loading = false;
@@ -16,19 +24,43 @@ abstract class _AuthController with Store {
   String error = '';
 
   @action
-  Future<void> signInAnonymously() async {
+  Future<void> getCurrentUser() async {
     try {
       loading = true;
 
-      final result = await FirebaseAuth.instance.signInAnonymously();
-
-      user = result.user;
+      await _firebaseAuth.currentUser();
 
       loading = false;
     } catch (e) {
       loading = false;
 
-      error = 'Erro ao entrar anonimamente, tente novamente.';
+      throw e;
+    }
+  }
+
+  @action
+  Future<void> signInWithGoogle() async {
+    try {
+      loading = true;
+
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      GoogleSignInAccount googleAccount = await googleSignIn.signIn();
+
+      if (googleAccount != null) {
+        GoogleSignInAuthentication googleAuth =
+            await googleAccount.authentication;
+
+        await _firebaseAuth.signInWithCredential(
+          GoogleAuthProvider.getCredential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ),
+        );
+      }
+
+      loading = false;
+    } catch (e) {
+      loading = false;
 
       throw e;
     }
@@ -39,9 +71,7 @@ abstract class _AuthController with Store {
     try {
       loading = true;
 
-      await FirebaseAuth.instance.signOut();
-
-      user = null;
+      await _firebaseAuth.signOut();
 
       loading = false;
     } catch (e) {

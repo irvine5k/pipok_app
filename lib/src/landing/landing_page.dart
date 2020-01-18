@@ -12,22 +12,18 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-
-
   @override
   Widget build(BuildContext context) {
     final _authController = Provider.of<AuthController>(context);
 
     return Observer(
       builder: (context) {
-        if(_authController.user == null) {
+        if (_authController.authStream.data == null) {
           return SignInPage();
         }
 
         return HomePage();
       },
     );
-  
-    
   }
 }

@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SignInButtonWidget(
-                  onTap: _authController.signInAnonymously,
+                  onTap: _authController.signInWithGoogle,
                 ),
               ],
             ),
