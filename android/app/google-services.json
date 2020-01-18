@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "321276901576",
+    "firebase_url": "https://pipok-dev.firebaseio.com",
+    "project_id": "pipok-dev",
+    "storage_bucket": "pipok-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321276901576:android:e3021480390b8b02e28dfd",
+        "android_client_info": {
+          "package_name": "com.irvine5k.pipok_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321276901576-1eusbl46khjm72vn47tae601icvt8q3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.irvine5k.pipok_app",
+            "certificate_hash": "c344df88766592420f41edb899aca30617bdb412"
+          }
+        },
+        {
+          "client_id": "321276901576-1jkl2kpc74cbhjjrbkciquinsdvqjh6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiXUAg1xCZqkUBsuuvvO_ozyRcAbfSsJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321276901576-1jkl2kpc74cbhjjrbkciquinsdvqjh6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
