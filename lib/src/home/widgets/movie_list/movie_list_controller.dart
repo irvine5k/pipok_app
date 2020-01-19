@@ -19,12 +19,30 @@ abstract class _MovieListController with Store {
             .map(
               (document) => MovieListModel.fromMap(
                 document.data,
+                document.documentID,
               ),
             )
             .toList()
-            .sort(
-              (a, b) => a.favorites.compareTo(b.favorites),
-            ),
+              ..sort(
+                (a, b) => b.favorites.length.compareTo(a.favorites.length),
+              ),
       )
       .asObservable();
+
+  void favorite(String documentId, String uuid) =>
+      _firestore.collection('lists').document(documentId).setData(
+        {
+          'favorites': [uuid],
+        },
+        merge: true,
+      );
+
+  void unfavorite(String documentId, String uuid) =>
+      _firestore.collection('lists').document(documentId).updateData(
+        {
+          'favorites': FieldValue.arrayRemove(
+            [uuid],
+          )
+        },
+      );
 }
