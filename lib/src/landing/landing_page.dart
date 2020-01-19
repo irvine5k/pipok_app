@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pipok_app/src/home/home_page.dart';
 import 'package:pipok_app/src/shared/auth/auth_controller.dart';
 import 'package:pipok_app/src/sign_in/sign_in_page.dart';
@@ -12,12 +13,22 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+
   @override
   Widget build(BuildContext context) {
     final _authController = Provider.of<AuthController>(context);
 
+    if(_authController.error.isNotEmpty){
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_authController.error),
+        ),
+      );
+    }
+
     return Observer(
       builder: (context) {
+        
         if (_authController.authStream.data == null) {
           return SignInPage();
         }

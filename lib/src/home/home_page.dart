@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pipok_app/src/home/widgets/movie_list/movie_list_widget.dart';
 import 'package:pipok_app/src/shared/auth/auth_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -33,8 +34,12 @@ class _HomePageState extends State<HomePage> {
               child: CircularProgressIndicator(),
             );
           }
-          
-          return Container();
+
+          return Column(
+            children: <Widget>[
+              MovieListWidget()
+            ],
+          );
         },
       ),
     );
