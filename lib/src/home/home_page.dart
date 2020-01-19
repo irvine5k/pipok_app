@@ -36,11 +36,14 @@ class _HomePageState extends State<HomePage> {
           }
 
           return Column(
-            children: <Widget>[
-              MovieListWidget()
-            ],
+            children: <Widget>[MovieListWidget()],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('CRIAR LISTA'),
+        icon: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
