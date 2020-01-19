@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pipok_app/src/home/widgets/movie_list/movie_list_widget.dart';
+import 'package:pipok_app/src/personal_lists/personal_lists_page.dart';
 import 'package:pipok_app/src/shared/auth/auth_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,43 @@ class _HomePageState extends State<HomePage> {
     final _authController = Provider.of<AuthController>(context);
 
     return Scaffold(
+      drawer: Drawer(
+        child: Container(
+          color: Colors.blue,
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(
+                child: Text(
+                  'MENU',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Card(
+                color: Colors.blue[800].withOpacity(0.2),
+                child: ListTile(
+                  title: Text(
+                    'MINHAS LISTAS',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalListsPage()));
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: Text('Inicio'),
         actions: <Widget>[
