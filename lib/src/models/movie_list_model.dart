@@ -44,14 +44,20 @@ class MovieModel {
   MovieModel({
     this.name,
     this.description,
-    this.genres,
+    this.genres = const [],
     this.image,
   });
 
   Map<String, dynamic> toMap() => {
         'name': this.name,
         'description': this.description,
-        'genres': this.genres,
+        'genres': this.genres ?? [],
         'image': this.image,
       };
+
+  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
+        image: json["poster_path"],
+        name: json["title"],
+        description: json["overview"],
+      );
 }
