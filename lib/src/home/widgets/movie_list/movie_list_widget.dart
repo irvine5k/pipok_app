@@ -60,7 +60,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          Colors.black,
+                          Colors.black54,
                         ],
                       ),
                     ),
@@ -91,7 +91,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                                         _authController.authStream.data.uid)
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            color: Colors.white,
+                            color: Colors.yellow,
                           ),
                         ),
                       ),
@@ -100,7 +100,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                         alignment: Alignment.bottomLeft,
                         padding: EdgeInsets.only(left: 20, bottom: 15),
                         child: Text(
-                          '${_movieListController.movieListsStream.data[index].name}',
+                          '${_movieListController.movieListsStream.data[index].name}'.toUpperCase(),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -110,11 +110,17 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                       Container(
                         alignment: Alignment.bottomRight,
                         padding: EdgeInsets.only(right: 20, bottom: 15),
-                        child: Text(
-                          '${_movieListController.movieListsStream.data[index].favorites.length}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.yellow,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Text(
+                            '${_movieListController.movieListsStream.data[index].favorites.length}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),

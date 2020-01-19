@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  google_fonts: ^0.3.2
   dio: ^3.0.8
   rxdart: ^0.23.1
   cloud_firestore: ^0.13.0+1

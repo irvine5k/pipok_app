@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
         PersonalListsController(_authController.authStream.data);
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
+      backgroundColor: Colors.black,
       body: Column(
         children: <Widget>[
           Expanded(
@@ -109,12 +109,16 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         'LISTAS',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Colors.yellow),
                       ),
                       IconButton(
-                        icon: Icon(Icons.exit_to_app, size: 30,),
+                        icon: Icon(
+                          Icons.exit_to_app,
+                          size: 30,
+                          color: Colors.yellow,
+                        ),
                         onPressed: _authController.signOut,
                       )
                     ],
@@ -128,7 +132,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 4,
             child: Container(
-              color: Colors.blueGrey[50],
+              // color: Colors.blueGrey[50],
               child: _buildTab(),
             ),
           ),
@@ -136,9 +140,17 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: tab == 2
           ? FloatingActionButton.extended(
-              backgroundColor: Colors.black,
-              icon: Icon(Icons.add),
-              label: Text('CRIAR LISTA'),
+              backgroundColor: Colors.yellow,
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+              label: Text(
+                'CRIAR LISTA',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
               onPressed: () {},
             )
           : null,
@@ -168,14 +180,15 @@ class TabItemWidget extends StatelessWidget {
             ? EdgeInsets.symmetric(horizontal: 10, vertical: 5)
             : null,
         decoration: BoxDecoration(
-            color: isSelected ? Colors.black12 : Colors.transparent,
-            borderRadius: BorderRadius.circular(20)),
+          color: isSelected ? Colors.yellow : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Text(
           label,
           style: TextStyle(
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            fontSize: isSelected ? 16 : 14,
-          ),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              fontSize: isSelected ? 16 : 14,
+              color: isSelected ? Colors.black : Colors.white),
         ),
       ),
       onTap: onTap,
