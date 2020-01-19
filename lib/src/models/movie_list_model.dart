@@ -2,6 +2,7 @@ class MovieListModel {
   final String name;
   final String creatorId;
   final double rating;
+  final int favorites;
   final List<MovieModel> movies;
 
   MovieListModel({
@@ -9,7 +10,10 @@ class MovieListModel {
     this.creatorId,
     this.rating,
     this.movies,
+    this.favorites,
   });
+
+  String get imageUrl => movies.first.image;
 
   factory MovieListModel.fromMap(Map<String, dynamic> map) => MovieListModel(
         name: map['name'],
@@ -25,6 +29,7 @@ class MovieListModel {
             ),
           ),
         ),
+        favorites: map['favorites'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -32,6 +37,7 @@ class MovieListModel {
         'creatorId': this.creatorId,
         'rating': this.rating,
         'movies': this.movies.map((movie) => movie.toMap()).toList(),
+        'favorites': 0,
       };
 }
 

@@ -21,7 +21,10 @@ abstract class _MovieListController with Store {
                 document.data,
               ),
             )
-            .toList(),
+            .toList()
+            .sort(
+              (a, b) => a.favorites.compareTo(b.favorites),
+            ),
       )
       .asObservable();
 }

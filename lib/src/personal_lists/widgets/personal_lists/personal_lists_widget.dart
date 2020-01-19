@@ -28,26 +28,87 @@ class _PersonalListsWidgetState extends State<PersonalListsWidget> {
           );
         }
 
-        return Expanded(
-          child: ListView.builder(
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: .8),
             itemCount: widget.controller.personalListsStream.data.length,
             itemBuilder: (context, index) => Card(
-              child: ListTile(
-                title: Text(
-                  widget.controller.personalListsStream.data[index].name,
-                ),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.arrow_forward_ios,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      'http://image.tmdb.org/t/p/w185/'
+                      '${widget.controller.personalListsStream.data[index].imageUrl}',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  onPressed: () {
-                    
-                  },
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black,
+                        ],
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        alignment: Alignment.bottomLeft,
+                        padding: EdgeInsets.only(left: 20, bottom: 15),
+                        child: Text(
+                          '${widget.controller.personalListsStream.data[index].name}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        padding: EdgeInsets.only(right: 20, bottom: 15),
+                        child: Text(
+                          '1000000',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
         );
+
+       
       },
     );
   }
