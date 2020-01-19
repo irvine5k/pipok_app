@@ -67,16 +67,7 @@ class _PersonalListsWidgetState extends State<PersonalListsWidget> {
                   ),
                   Column(
                     children: <Widget>[
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                     
                       Spacer(),
                       Container(
                         alignment: Alignment.bottomLeft,
@@ -93,7 +84,7 @@ class _PersonalListsWidgetState extends State<PersonalListsWidget> {
                         alignment: Alignment.bottomRight,
                         padding: EdgeInsets.only(right: 20, bottom: 15),
                         child: Text(
-                          '1000000',
+                          '${widget.controller.personalListsStream.data[index].favorites.length}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,

@@ -1,24 +1,28 @@
 class MovieListModel {
+  final String id;
   final String name;
   final String creatorId;
-  final double rating;
-  final int favorites;
   final List<MovieModel> movies;
+  final List<String> favorites;
 
   MovieListModel({
+    this.id,
     this.name,
     this.creatorId,
-    this.rating,
     this.movies,
     this.favorites,
   });
 
   String get imageUrl => movies.first.image;
 
-  factory MovieListModel.fromMap(Map<String, dynamic> map) => MovieListModel(
+  int get favoritesCount => favorites.length;
+
+  bool isFavorited(String userId) => favorites.contains(userId);
+
+  factory MovieListModel.fromMap(Map<String, dynamic> map, String id) => MovieListModel(
+        id: id,
         name: map['name'],
         creatorId: map['creatorId'],
-        rating: double.parse(map['rating'].toString()),
         movies: List<MovieModel>.from(
           map['movies'].map(
             (movie) => MovieModel(
@@ -29,15 +33,14 @@ class MovieListModel {
             ),
           ),
         ),
-        favorites: map['favorites'],
+        favorites: map['favorites'].cast<String>(),
       );
 
   Map<String, dynamic> toMap() => {
         'name': this.name,
         'creatorId': this.creatorId,
-        'rating': this.rating,
         'movies': this.movies.map((movie) => movie.toMap()).toList(),
-        'favorites': 0,
+        'favorites': <String>[],
       };
 }
 

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pipok_app/src/models/movie_list_model.dart';
+import 'package:pipok_app/src/shared/auth/auth_controller.dart';
+import 'package:provider/provider.dart';
 
 import 'movie_list_controller.dart';
 
@@ -15,6 +17,8 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final _authController = Provider.of<AuthController>(context);
+
     return Observer(
       builder: (context) {
         if (_movieListController.movieListsStream.data == null) {
@@ -66,9 +70,27 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                       Container(
                         alignment: Alignment.topRight,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _movieListController.movieListsStream.data[index]
+                                    .isFavorited(
+                                        _authController.authStream.data.uid)
+                                ? _movieListController.unfavorite(
+                                    _movieListController
+                                        .movieListsStream.data[index].id,
+                                    _authController.authStream.data.uid,
+                                  )
+                                : _movieListController.favorite(
+                                    _movieListController
+                                        .movieListsStream.data[index].id,
+                                    _authController.authStream.data.uid,
+                                  );
+                          },
                           icon: Icon(
-                            Icons.favorite_border,
+                            _movieListController.movieListsStream.data[index]
+                                    .isFavorited(
+                                        _authController.authStream.data.uid)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
                             color: Colors.white,
                           ),
                         ),
@@ -89,7 +111,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                         alignment: Alignment.bottomRight,
                         padding: EdgeInsets.only(right: 20, bottom: 15),
                         child: Text(
-                          '${_movieListController.movieListsStream.data[index].favorites}',
+                          '${_movieListController.movieListsStream.data[index].favorites.length}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,

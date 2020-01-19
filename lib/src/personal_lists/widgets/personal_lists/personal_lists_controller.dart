@@ -24,6 +24,7 @@ abstract class _PersonalListsController with Store {
             .map(
               (document) => MovieListModel.fromMap(
                 document.data,
+                document.documentID,
               ),
             )
             .where(

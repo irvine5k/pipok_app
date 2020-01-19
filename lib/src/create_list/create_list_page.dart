@@ -46,8 +46,7 @@ class _CreateListPageState extends State<CreateListPage> {
               creatorId: user.authStream.data.uid,
               name: _nameController.text,
               movies: _controller.selectedMovies,
-              
-              rating: 0,
+              favorites: <String>[]
             ),
           );
 

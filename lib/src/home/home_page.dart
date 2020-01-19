@@ -59,7 +59,9 @@ class _HomePageState extends State<HomePage> {
     switch (tab) {
       case 0:
         return Container(
-          color: Colors.red,
+          child: Center(
+            child: Text('Em breve'),
+          ),
         );
         break;
       case 1:
@@ -100,12 +102,22 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'LISTAS',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'LISTAS',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.exit_to_app, size: 30,),
+                        onPressed: _authController.signOut,
+                      )
+                    ],
                   ),
                   SizedBox(height: 10),
                   buildTabs(),
@@ -114,7 +126,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Container(
               color: Colors.blueGrey[50],
               child: _buildTab(),
@@ -151,10 +163,19 @@ class TabItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Text(
-        label,
-        style: TextStyle(
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      child: Container(
+        padding: isSelected
+            ? EdgeInsets.symmetric(horizontal: 10, vertical: 5)
+            : null,
+        decoration: BoxDecoration(
+            color: isSelected ? Colors.black12 : Colors.transparent,
+            borderRadius: BorderRadius.circular(20)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontSize: isSelected ? 16 : 14,
+          ),
         ),
       ),
       onTap: onTap,
