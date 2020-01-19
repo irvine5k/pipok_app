@@ -39,6 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        multiDexEnabled true
         applicationId "com.irvine5k.pipok_app"
         minSdkVersion 16
         targetSdkVersion 28
